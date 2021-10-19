@@ -3,8 +3,11 @@
 ## 2.0.0 – (UNRELEASED)
 
 * **BREAKING CHANGE** Drop support for Rails 4.2
+* **BREAKING CHANGE** Drop support for Rails 5.0
+* **BREAKING CHANGE** Drop support for Rails 5.1
 * **BREAKING CHANGE** Removed deprecated methods
 * Fix Rails 6 deprecation warnings
+* Add offical support for Rails 6.1
 
 ## 1.4.0 - July 10, 2019
 * **BREAKING CHANGE** drop support for rails 4.1
