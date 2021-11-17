@@ -8,3 +8,4 @@ gemfiles/*.lock
 pkg/*
 .DS_Store
 *.sqlite3
+.idea/
