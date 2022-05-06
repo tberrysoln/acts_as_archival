@@ -133,15 +133,15 @@ module ExpectedBehavior
       end
 
       private def execute_archival_action(action)
+        result = false
         self.class.transaction do
           begin
-            success = run_callbacks(action) { yield }
-            return !!success
+            result = !!run_callbacks(action) { yield }
           rescue => e
             handle_archival_action_exception(e)
           end
         end
-        false
+        result
       end
 
       private def handle_archival_action_exception(exception)
