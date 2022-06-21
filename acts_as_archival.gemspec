@@ -5,6 +5,7 @@ require "acts_as_archival/version"
 Gem::Specification.new do |gem|
   gem.name        = "acts_as_archival"
   gem.summary     = "Atomic archiving/unarchiving for ActiveRecord-based apps"
+  gem.licenses    = ['MIT']
   gem.version     = ActsAsArchival::VERSION
   gem.authors     = ["Joel Meador",
                      "Michael Kuehl",
