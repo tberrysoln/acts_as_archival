@@ -72,8 +72,9 @@ def require_test_classes
     inflect.irregular "poly", "polys"
   end
 
-  fixtures = BASE_FIXTURE_CLASSES
-  fixtures.each { |test_class_file| require_relative "fixtures/#{test_class_file}" }
+  BASE_FIXTURE_CLASSES.each do |test_class_file|
+    require_relative "fixtures/#{test_class_file}"
+  end
 end
 
 prepare_for_tests
