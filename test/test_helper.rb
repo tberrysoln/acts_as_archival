@@ -1,4 +1,4 @@
-$LOAD_PATH.unshift(File.dirname(__FILE__) + "/../lib")
+$LOAD_PATH.unshift("#{File.dirname(__FILE__)}/../lib")
 require "bundler/setup"
 require "minitest/autorun"
 require "minitest/pride"
@@ -22,7 +22,7 @@ end
 
 def setup_logging
   require "logger"
-  logfile = File.dirname(__FILE__) + "/debug.log"
+  logfile = "#{File.dirname(__FILE__)}/debug.log"
   ActiveRecord::Base.logger = Logger.new(logfile)
 end
 
@@ -43,7 +43,7 @@ def sqlite_config
 end
 
 def create_test_tables
-  schema_file = File.dirname(__FILE__) + "/schema.rb"
+  schema_file = "#{File.dirname(__FILE__)}/schema.rb"
   puts "** Loading schema for SQLite"
   ActiveRecord::Base.establish_connection(sqlite_config)
   load(schema_file) if File.exist?(schema_file)
@@ -61,17 +61,10 @@ BASE_FIXTURE_CLASSES = [
   :missing_archive_number,
   :plain,
   :poly,
-  :readonly_when_archived
-].freeze
-
-RAILS_4_FIXTURE_CLASSES = [
-  :callback_archival_4
-].freeze
-
-RAILS_5_FIXTURE_CLASSES = [
+  :readonly_when_archived,
   :application_record,
   :application_record_row,
-  :callback_archival_5
+  :callback_archival
 ].freeze
 
 def require_test_classes
@@ -79,13 +72,7 @@ def require_test_classes
     inflect.irregular "poly", "polys"
   end
 
-  fixtures = if ActiveRecord::VERSION::MAJOR >= 4
-               RAILS_5_FIXTURE_CLASSES
-             else
-               RAILS_4_FIXTURE_CLASSES
-             end
-
-  fixtures += BASE_FIXTURE_CLASSES
+  fixtures = BASE_FIXTURE_CLASSES
   fixtures.each { |test_class_file| require_relative "fixtures/#{test_class_file}" }
 end
 

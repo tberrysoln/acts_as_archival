@@ -76,13 +76,7 @@ ActiveRecord::Schema.define(version: 1) do
     t.column :archived_at, :datetime
   end
 
-  create_table :callback_archival4s, force: true do |t|
-    t.column :settable_field, :string
-    t.column :archive_number, :string
-    t.column :archived_at, :datetime
-  end
-
-  create_table :callback_archival5s, force: true do |t|
+  create_table :callback_archivals, force: true do |t|
     t.column :settable_field, :string
     t.column :archive_number, :string
     t.column :archived_at, :datetime
