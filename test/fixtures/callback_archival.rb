@@ -1,4 +1,4 @@
-class CallbackArchival4 < ActiveRecord::Base
+class CallbackArchival < ApplicationRecord
 
   acts_as_archival
 
@@ -8,12 +8,15 @@ class CallbackArchival4 < ActiveRecord::Base
   before_archive :set_value,
                  :conditional_callback_passer
 
-  private def set_value
+  private
+
+  def set_value
     self.settable_field = set_this_value
   end
 
-  private def conditional_callback_passer
-    pass_callback || pass_callback.nil?
+  def conditional_callback_passer
+    # we want to throw only for the value false
+    throw(:abort) unless pass_callback || pass_callback.nil?
   end
 
 end

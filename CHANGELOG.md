@@ -1,6 +1,12 @@
 # CHANGELOG
 
-## 2.0.0 – (UNRELEASED)
+## 2.1.0
+* **BREAKING CHANGE** Drop support for Rails 5.2 and 6.0 (6.1 support remains)
+* Add support for Rails 7
+* Fix deprecation warnings
+* Need Ruby >=2.7 for Rails 7 support
+
+## 2.0.0
 
 * **BREAKING CHANGE** Drop support for Rails 4.2
 * **BREAKING CHANGE** Drop support for Rails 5.0
