@@ -33,7 +33,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.required_ruby_version = ">= 2.7.3"
 
-  gem.add_dependency "activerecord", ">= 5.0"
+  gem.add_dependency "activerecord", ">= 6.1"
 
   gem.add_development_dependency "appraisal"
   gem.add_development_dependency "assertions-eb"
