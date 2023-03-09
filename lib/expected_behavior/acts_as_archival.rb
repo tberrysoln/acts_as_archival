@@ -3,13 +3,13 @@ module ExpectedBehavior
 
     require "digest/md5"
 
-    unless defined?(MissingArchivalColumnError) == "constant" && MissingArchivalColumnError.class == Class
+    unless defined?(MissingArchivalColumnError) == "constant" && MissingArchivalColumnError.instance_of?(Class)
       MissingArchivalColumnError = Class.new(ActiveRecord::ActiveRecordError)
     end
-    unless defined?(CouldNotArchiveError) == "constant" && CouldNotArchiveError.class == Class
+    unless defined?(CouldNotArchiveError) == "constant" && CouldNotArchiveError.instance_of?(Class)
       CouldNotArchiveError = Class.new(ActiveRecord::ActiveRecordError)
     end
-    unless defined?(CouldNotUnarchiveError) == "constant" && CouldNotUnarchiveError.class == Class
+    unless defined?(CouldNotUnarchiveError) == "constant" && CouldNotUnarchiveError.instance_of?(Class)
       CouldNotUnarchiveError = Class.new(ActiveRecord::ActiveRecordError)
     end
 
@@ -66,6 +66,7 @@ module ExpectedBehavior
 
       private def define_callback_dsl_method(callbackable_type, action)
         # rubocop:disable Security/Eval
+        # rubocop:disable Style/DocumentDynamicEvalDefinition
         eval <<-end_callbacks
           unless defined?(#{callbackable_type}_#{action})
             def #{callbackable_type}_#{action}(*args, &blk)
@@ -73,6 +74,7 @@ module ExpectedBehavior
             end
           end
         end_callbacks
+        # rubocop:enable Style/DocumentDynamicEvalDefinition
         # rubocop:enable Security/Eval
       end
 
@@ -132,15 +134,14 @@ module ExpectedBehavior
         AssociationOperation::Unarchive.new(self, head_archive_number).execute
       end
 
-      private def execute_archival_action(action)
+      private def execute_archival_action(action, &block)
         result = false
         self.class.transaction do
-          begin
-            result = !!run_callbacks(action) { yield }
-          rescue => e
-            handle_archival_action_exception(e)
-          end
+          result = !!run_callbacks(action, &block)
+        rescue => e
+          handle_archival_action_exception(e)
         end
+
         result
       end
 
